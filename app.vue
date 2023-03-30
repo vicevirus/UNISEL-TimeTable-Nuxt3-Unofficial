@@ -1,6 +1,6 @@
-Modify this code to use SSR nuxt 3
+
 <template>
-   <img :src="usePWAIcon(192)">
+
   <Head>
             <Title>UNISEL Timetable</Title>
          </Head>
