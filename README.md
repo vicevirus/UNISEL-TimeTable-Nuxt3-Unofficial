@@ -1,43 +1,36 @@
-# Nuxt 3 Minimal Starter
+# UNISEL TimeTable Vue App
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This Nuxt.js app displays the timetable for the Universiti Selangor (UNISEL) across its campuses. It allows users to select a campus and a subject, and displays the timetable for the selected subject in a table format.
 
-## Setup
+Previous project is in vanilla Vue. Intends to use Nuxt SSR for better SEO.
 
-Make sure to install the dependencies:
+Website available here : https://unisel-timetable.vercel.app
 
-```bash
-# yarn
-yarn install
+## Usage
 
-# npm
-npm install
+To use the app, simply select a campus and a subject using the radio buttons and dropdown list respectively. The app will display the timetable for the selected subject in the table below.
 
-# pnpm
-pnpm install
-```
+## Technologies Used
 
-## Development Server
+The app was built using the following technologies:
 
-Start the development server on http://localhost:3000
+- Nuxt 3
+- Vue.js
+- Vuetify
+- Axios
 
-```bash
-npm run dev
-```
+## Getting Started
 
-## Production
+To get started with the app, follow these steps:
 
-Build the application for production:
+1. Clone the repository
+2. Install the required dependencies using `npm install`
+3. Start the app using `npm run serve`
 
-```bash
-npm run build
-```
+## Contributing
 
-Locally preview production build:
+If you would like to contribute to the app, please submit a pull request. All contributions are welcome!
 
-```bash
-npm run preview
-```
+## License
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-# UNISEL-TimeTable-Nuxt3
+This app is licensed under the MIT License. See LICENSE for more information.
