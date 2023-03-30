@@ -1,7 +1,8 @@
 
 <template>
   <Head>
-    <Title>UNISEL Timetable</Title>
+    <Title>UNISEL Timetable (Unofficial)</Title>
+    <Meta name="description" content="Unisel Timetable (Unofficial). Easier navigation. All in one." />
   </Head>
   <div id="app">
 
@@ -215,6 +216,11 @@ import axios from "axios";
 
 import { useTheme } from 'vuetify'
 export default {
+  head: {
+    meta: [
+      { name: 'description', content: 'Unisel Timetable easier navigation' }
+    ]
+  },
 
   setup() {
     const theme = useTheme()
