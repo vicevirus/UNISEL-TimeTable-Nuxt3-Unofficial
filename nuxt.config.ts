@@ -3,6 +3,12 @@ export default defineNuxtConfig({
     modules: [
         '@kevinmarrec/nuxt-pwa'
     ],
+    pwa: {
+        meta: {
+            // Generate splash screens for iOS
+            mobileAppIOS: true,
+        }
+    },
     ssr: true,
     css: ['vuetify/lib/styles/main.sass'],
     build: {
