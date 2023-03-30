@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-app",
+  "name": "unisel-timetable",
   "private": true,
   "scripts": {
     "build": "nuxt build",
