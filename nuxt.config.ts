@@ -7,12 +7,9 @@ export default defineNuxtConfig({
         meta: {
             // Generate splash screens for iOS
             mobileAppIOS: true,
-        },
-        manifest: {
             name: 'Unisel Timetable',
+        },
 
-            useWebmanifestExtension: false
-          }
     },
     ssr: true,
     css: ['vuetify/lib/styles/main.sass'],
