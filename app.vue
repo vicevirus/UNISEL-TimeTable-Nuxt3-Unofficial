@@ -1,5 +1,8 @@
 Modify this code to use SSR nuxt 3
 <template>
+  <Head>
+            <Title>UNISEL Timetable</Title>
+         </Head>
   <div id="app">
 
     <v-app>
@@ -192,11 +195,6 @@ Modify this code to use SSR nuxt 3
 
   </div>
 </template>
-<script setup>
-    useMeta({
-        title: 'ROAST - Home'
-    })
-</script>
 
 <script>
 
