@@ -1,4 +1,4 @@
-From this code, how can I make the app bar collapse on scroll
+
 <template>
   <Head>
     <Title>UNISEL Timetable</Title>
