@@ -1,16 +1,16 @@
-
+From this code, how can I make the app bar collapse on scroll
 <template>
-
   <Head>
-            <Title>UNISEL Timetable</Title>
-         </Head>
+    <Title>UNISEL Timetable</Title>
+  </Head>
   <div id="app">
 
     <v-app>
-      <v-app-bar color="deep-purple accent-4" dense dark>
+      <v-app-bar color="deep-purple accent-4" :elevation="10" density="compact" rounded dark absolute>
 
 
         <v-toolbar-title class="title">UNISEL TimeTable</v-toolbar-title>
+
         <v-spacer></v-spacer>
         <span class="mr-3">
           <v-btn variant="outlined" :color="toggleButtonColor" @click="toggleTheme">
@@ -18,26 +18,38 @@
 
           </v-btn>
         </span>
-        <span class="mr-3"><v-btn href="https://github.com/vicevirus/UNISEL-TimeTable-REST-Scraper"
-            variant="outlined">API</v-btn></span>
-        <span class="mr-3"><v-btn href="https://github.com/vicevirus/UNISEL-TimeTable-Vue"
-            variant="outlined">Vue</v-btn></span>
+     
+
+        <v-menu>
+          <template v-slot:activator="{ props }">
+            <v-btn color="white" v-bind="props" variant="outlined">
+              Contribute
+            </v-btn>
+          </template>
+          <v-list>
+            <a v-for="(item, index) in items" :key="index" :href="item.url">
+              <v-list-item :value="index">
+                <v-list-item-title class="text-center">{{ item.title }}</v-list-item-title>
+              </v-list-item>
+            </a>
+          </v-list>
+        </v-menu>
       </v-app-bar>
       <div>
-    
-  </div>
-      <div class="boxSpace"></div>
+
+      </div>
+      <div class="boxSpace" style="height: 3vh;"></div>
 
       <div class="wrapper">
 
         <v-card variant="tonal" style="text-align: center; ">
 
-          <h3 ><b>Campus</b></h3>
+          <h3><b>Campus</b></h3>
 
           <v-divider thickness="1px" color="purple"></v-divider>
           <p style="font-size: 15px">Semester: <b>{{ semesterCode }}</b></p>
           <v-card-text>
-            <v-alert color="blue-grey" v-if="!selectedCampus" text="Please select a campus"></v-alert>
+            <v-alert color="purple darken-2" v-if="!selectedCampus">Please select a campus.</v-alert>
 
             <v-container :fluid="true">
               <div class="radio-group">
@@ -160,7 +172,7 @@
                 <th class="xAxis">19:00</th>
                 <th class="xAxis">20:00</th>
                 <th class="xAxis">21:00</th>
-  
+
               </tr>
             </thead>
             <tbody>
@@ -212,10 +224,15 @@ export default {
       toggleTheme: () => theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
     }
   },
- 
+
   data() {
     return {
+      items: [
+        { title: 'API', url: 'https://github.com/vicevirus/UNISEL-TimeTable-REST-Scraper' },
+        { title: 'Vue', url: 'https://github.com/vicevirus/UNISEL-TimeTable-Vue' },
+        { title: 'Nuxt (WIP)', url: 'https://github.com/vicevirus/UNISEL-TimeTable-Nuxt3' },
 
+      ],
       campuses: ["SA", "BJ", "F"],
       selectedCampus: "",
       semesterCode: "",
@@ -277,7 +294,7 @@ export default {
     selectedCampus() {
       this.updateSubjects();
     },
-    
+
   },
   created() {
     this.updateSubjects();
@@ -286,8 +303,12 @@ export default {
 </script>
 
 <style>
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+a {
+
+    text-decoration: none;
+
+  }
 
 .radio-group {
   margin-top: -2rem;

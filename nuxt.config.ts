@@ -8,7 +8,7 @@ export default defineNuxtConfig({
             lang: 'en',
             name: 'Unisel Timetable',
             short_name: "Unisel Timetable",
-            useWebmanifestExtension: false
+
           },
         meta: {
             // Generate splash screens for iOS
