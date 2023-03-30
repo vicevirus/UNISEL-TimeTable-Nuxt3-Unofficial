@@ -4,16 +4,19 @@ export default defineNuxtConfig({
         '@kevinmarrec/nuxt-pwa'
     ],
     pwa: {
+        manifest: {
+            lang: 'en',
+            name: 'Unisel Timetable',
+            short_name: "Unisel Timetable",
+            useWebmanifestExtension: false
+          },
         meta: {
             // Generate splash screens for iOS
             mobileAppIOS: true,
             name: 'Unisel Timetable',
             theme_color: '#ffffff',
         },
-        manifest: {
-            lang: 'en',
-            name: 'Unisel Timetable',
-          },
+       
 
     },
     ssr: true,
