@@ -8,7 +8,12 @@ export default defineNuxtConfig({
             // Generate splash screens for iOS
             mobileAppIOS: true,
             name: 'Unisel Timetable',
+            theme_color: '#ffffff',
         },
+        manifest: {
+            lang: 'en',
+            name: 'Unisel Timetable',
+          },
 
     },
     ssr: true,
