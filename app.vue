@@ -192,6 +192,11 @@ Modify this code to use SSR nuxt 3
 
   </div>
 </template>
+<script setup>
+    useMeta({
+        title: 'ROAST - Home'
+    })
+</script>
 
 <script>
 
