@@ -1,6 +1,7 @@
 {
   "name": "unisel-timetable",
   "private": true,
+  "packageManager": "^pnpm@8.1.0",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
