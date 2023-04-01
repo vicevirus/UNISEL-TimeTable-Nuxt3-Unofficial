@@ -54,7 +54,7 @@
           </v-card-text>
           
         </v-card>
-        
+        ODORE
         <div class="boxSpace" style="height: 2vh"></div>
         <div v-if="selectedCampus">
           <v-card variant="tonal" style="text-align: center; ">
