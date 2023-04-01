@@ -61,14 +61,9 @@
             <v-card-text>
               <v-container :fluid="true">
 
-                <v-btn color="orange" @click="reset" rounded="lg" class="clear-button" style="width: 100%">
-                  <i class="material-icons">
-                    clear
-                  </i>
-                  Clear
-                </v-btn>
+               
                 <div class="boxSpace" style="height: 1vh;"></div>
-                <v-autocomplete  auto-select-first ref="input" label="Subject" v-model="selectedSubject" :items="subjects"
+                <v-autocomplete  auto-select-first ref="input" label="Select or type a subject.." v-model="selectedSubject" :items="subjects"
                   item-text="subject" variant="solo" clearable item-value="index" placeholder="Select Subject" 
                   :style="{ 'max-width': '100%', 'height': '10vh' }">
                 </v-autocomplete>
