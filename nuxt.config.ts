@@ -2,7 +2,7 @@
 
 export default defineNuxtConfig({
     
-    plugins: [{ src: '~/plugins/vercel.js', mode: 'client' }],
+  
     
     modules: [
         '@nuxtjs/robots',
