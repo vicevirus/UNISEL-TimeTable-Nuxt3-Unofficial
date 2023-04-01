@@ -56,7 +56,7 @@ export default {
             drawer: false,
             contributeItems: [
                 { title: 'API', url: 'https://github.com/vicevirus/UNISEL-TimeTable-REST-Scraper' },
-                { title: 'Vue', url: 'https://github.com/vicevirus/UNISEL-TimeTable-Vue' },
+                { title: 'Vue', url: 'https://github.com/vicevirus/UNISEL-TimeTable-Nuxt3' },
                 { title: 'Nuxt (WIP)', url: 'https://github.com/vicevirus/UNISEL-TimeTable-Nuxt3' },
 
             ],
