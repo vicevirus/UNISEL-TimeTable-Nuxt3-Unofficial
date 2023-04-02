@@ -1,4 +1,3 @@
-How do I make vue-autocomplete lazy loading
 <template>
     <Head>
         <Title>UNISEL Timetable (Unofficial) / Subjects Multiviewer</Title>
@@ -71,7 +70,7 @@ How do I make vue-autocomplete lazy loading
                                 <div class="boxSpace" style="height: 1vh;"></div>
                                 <v-autocomplete auto-select-first ref="input" label="Select or type a subject.."
                                     v-model="selectedSubjectIndex" :items="subjects" item-text="subject" variant="solo"
-                                    item-value="index" placeholder="Select Subject" lazy clearable
+                                    item-value="index" placeholder="Select Subject" clearable
                                     :style="{ 'max-width': '100%', 'height': '10vh' }">
                                 </v-autocomplete>
                                 <div class="boxSpace" style="height: 1vh"></div>
