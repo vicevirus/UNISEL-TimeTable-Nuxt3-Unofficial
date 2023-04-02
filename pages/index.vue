@@ -1,4 +1,3 @@
-
 <template>
   <Head>
     <Title>UNISEL Timetable (Unofficial)</Title>
@@ -261,7 +260,10 @@ export default {
     selectedCampus() {
       this.updateSubjects();
     },
-
+    selectedSubject() {
+    this.selectedSubject = '';
+  }
+   
   },
   created() {
     this.updateSubjects();
