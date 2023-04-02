@@ -69,7 +69,7 @@
 
                                 <div class="boxSpace" style="height: 1vh;"></div>
                                 <v-autocomplete auto-select-first ref="input" label="Select or type a subject.."
-                                    v-model="selectedSubjectIndex" :items="subjects" item-text="subject" variant="solo"
+                                    v-model="selectedSubjectIndex" :items="subjects" item-text="subject" :persistent-placeholder="true" open-on-clear variant="solo"
                                     item-value="index" placeholder="Select Subject" clearable
                                     :style="{ 'max-width': '100%', 'height': '10vh' }">
                                 </v-autocomplete>
