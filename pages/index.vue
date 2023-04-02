@@ -260,9 +260,6 @@ export default {
     selectedCampus() {
       this.updateSubjects();
     },
-    selectedSubject() {
-    this.selectedSubject = '';
-  }
    
   },
   created() {
