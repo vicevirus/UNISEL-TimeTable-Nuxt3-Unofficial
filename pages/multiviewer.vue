@@ -10,16 +10,18 @@
             <div class="boxSpace" style="height: 3vh;"></div>
 
             <wrapper>
-               
-                
+
+
                 <v-card variant="tonal" style="text-align: center; ">
-                    
-                    <v-alert ><h2><b>Subjects MultiViewer</b></h2>View multiple subjects in one place.</v-alert>
-    
-            
+
+                    <v-alert>
+                        <h2><b>Subjects MultiViewer</b></h2>View multiple subjects in one place.
+                    </v-alert>
+
+
 
                     <v-divider thickness="1px" color="purple"></v-divider>
-                   
+
                     <v-card-text>
                         <v-alert color="purple darken-2" v-if="!selectedCampus">Please select a campus.</v-alert>
 
@@ -48,14 +50,14 @@
                                     </label>
                                 </div>
                             </div>
-                            
+
                             <div class="boxSpace" style="height: 1vh"></div>
-                            
+
                         </v-container>
                         <br>
                         <p v-if="selectedCampus" style="font-size: 15px">Semester: <b>{{ semesterCode }}</b></p>
                     </v-card-text>
-                    
+
                 </v-card>
                 <div class="boxSpace" style="height: 2vh"></div>
                 <div v-if="selectedCampus">
@@ -63,12 +65,12 @@
                         <v-card-text>
                             <v-container :fluid="true">
 
-                                
+
 
                                 <div class="boxSpace" style="height: 1vh;"></div>
-                                <v-autocomplete auto-select-first ref="input" label="Select or type a subject.." v-model="selectedSubjectIndex"
-                                    :items="subjects" item-text="subject" variant="solo" item-value="index"
-                                    placeholder="Select Subject" clearable
+                                <v-autocomplete auto-select-first ref="input" label="Select or type a subject.."
+                                    v-model="selectedSubjectIndex" :items="subjects" item-text="subject" variant="solo"
+                                    item-value="index" placeholder="Select Subject" clearable
                                     :style="{ 'max-width': '100%', 'height': '10vh' }">
                                 </v-autocomplete>
                                 <div class="boxSpace" style="height: 1vh"></div>
@@ -85,8 +87,9 @@
             </wrapper>
 
             <v-container :fluid="true" class="timetable-container">
-                <v-responsive v-if="selectedSubject !== '' && selectedCampus == 'BJ' || selectedCampus == 'F'">
-                    <v-table class="timetable" v-for="subject in addedSubjects">
+                <v-responsive v-if="selectedSubjectIndex !== null && selectedCampus == 'BJ' || selectedCampus == 'F'">
+
+                    <v-table class="timetable" v-for="subject in addedSubjectsByCampus[selectedCampus]">
 
                         <thead>
                             <tr>
@@ -132,8 +135,8 @@
 
                 </v-responsive>
 
-                <v-responsive v-if="selectedSubject !== '' && selectedCampus == 'SA'">
-                    <v-table class="timetable" v-for="subject in addedSubjects">
+                <v-responsive v-if="selectedSubjectIndex !== null && selectedCampus == 'SA'">
+                    <v-table class="timetable" v-for="subject in addedSubjectsByCampus[selectedCampus]">
 
                         <thead>
                             <tr>
@@ -196,9 +199,21 @@ import axios from "axios";
 export default {
     data() {
         return {
+            addedSubjectsByCampus: {
+                'SA': [],
+                'BJ': [],
+                'F': []
+            },
+            timeDataByCampus: {
+                'SA': {},
+                'BJ': {},
+                'F': {}
+            },
+
             timetableData: [],
             selectedSubjectIndex: null,
-            addedSubjects: [],
+
+
             error: '',
             subjects: [],
             selectedCampus: null,
@@ -235,8 +250,9 @@ export default {
                 );
                 this.timeData = campusData.subjectsTime
 
-           
+                this.timeDataByCampus[this.selectedCampus] = this.timeData;
 
+                this.addedSubjects = [];
 
 
             } catch (error) {
@@ -251,26 +267,17 @@ export default {
 
             const selectedSubject = {
                 ...this.timetableData.subjects[this.selectedSubjectIndex],
-                time: this.timetableData.subjectsTime[this.selectedSubjectIndex],
                 index: this.selectedSubjectIndex
             };
 
 
-            this.addedSubjects.push(selectedSubject);
+            this.addedSubjectsByCampus[this.selectedCampus].push(selectedSubject);
             this.error = '';
             this.selectedSubjectIndex = '';
 
-            console.log(this.addedSubjects)
+
         },
-        reset() {
-            if (this.selectedCampus === "F") {
-                this.selectedSubjectIndex = ""; // clear the selectedSubject property
-                this.$refs.input.search = ""; // clear the input search property
-            } else {
-                this.selectedSubjectIndex = ""; // clear the selectedSubject property
-                this.$refs.input.search = 'Default Value';
-            }
-        },
+
     },
     watch: {
         selectedCampus() {

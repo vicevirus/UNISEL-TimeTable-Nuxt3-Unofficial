@@ -16,11 +16,13 @@
 
       <wrapper>
         <v-card variant="tonal" style="text-align: center; ">
-          <v-alert ><h2><b>Timetable</b></h2>View subjects timetable.</v-alert>
+          <v-alert>
+            <h2><b>Timetable</b></h2>View subjects timetable.
+          </v-alert>
 
 
           <v-divider thickness="1px" color="purple"></v-divider>
-          
+
           <v-card-text>
             <v-alert color="purple darken-2" v-if="!selectedCampus">Please select a campus.</v-alert>
 
@@ -51,20 +53,20 @@
             <br>
             <p v-if="selectedCampus" style="font-size: 15px">Semester: <b>{{ semesterCode }}</b></p>
           </v-card-text>
-          
+
         </v-card>
-  
+
         <div class="boxSpace" style="height: 2vh"></div>
         <div v-if="selectedCampus">
           <v-card variant="tonal" style="text-align: center; ">
             <v-card-text>
               <v-container :fluid="true">
 
-               
+
                 <div class="boxSpace" style="height: 1vh;"></div>
-                <v-autocomplete  auto-select-first ref="input" label="Select or type a subject.." v-model="selectedSubject" :items="subjects"
-                  item-text="subject" variant="solo" clearable item-value="index" placeholder="Select Subject" 
-                  :style="{ 'max-width': '100%', 'height': '10vh' }">
+                <v-autocomplete auto-select-first ref="input" label="Select or type a subject.." v-model="selectedSubject"
+                  :items="subjects" item-text="subject" variant="solo" clearable item-value="index"
+                  placeholder="Select Subject" :style="{ 'max-width': '100%', 'height': '10vh' }">
                 </v-autocomplete>
                 <div class="boxSpace" style="height: 1vh"></div>
                 <v-alert><b>Note: </b>Scroll the table horizontally/vertically if it's too big.</v-alert>
@@ -185,7 +187,6 @@
 
 import axios from "axios";
 
-import { useTheme } from 'vuetify'
 export default {
   head: {
     meta: [
@@ -240,15 +241,7 @@ export default {
         console.error("Error fetching timetable data:", error);
       }
     },
-    reset() {
-      if (this.selectedCampus === "F") {
-        this.selectedSubject = ""; // clear the selectedSubject property
-        this.$refs.input.search = ""; // clear the input search property
-      } else {
-        this.selectedSubject = ""; // clear the selectedSubject property
-        this.$refs.input.search = 'Default Value';
-      }
-    },
+
 
   },
   computed: {
@@ -260,7 +253,7 @@ export default {
     selectedCampus() {
       this.updateSubjects();
     },
-   
+
   },
   created() {
     this.updateSubjects();
