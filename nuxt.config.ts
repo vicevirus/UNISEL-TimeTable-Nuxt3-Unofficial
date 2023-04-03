@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 export default defineNuxtConfig({
+    
     plugins: ['~/plugins/vueselect.js', { src: '~/plugins/vercel.js', mode: 'client' }],
 
 
