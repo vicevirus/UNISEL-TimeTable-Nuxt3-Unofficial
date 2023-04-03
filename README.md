@@ -4,7 +4,7 @@ This Nuxt.js app displays the timetable for the Universiti Selangor (UNISEL) acr
 
 Previous project is in vanilla Vue. Intends to use Nuxt SSR for better SEO.
 
-Website available here : https://unisel-timetable.vercel.app
+Website available here : https://uniseltimetable.vercel.app
 
 ## Usage
 
@@ -18,6 +18,7 @@ The app was built using the following technologies:
 - Vue.js
 - Vuetify
 - Axios
+- vue-select
 
 ## Getting Started
 
