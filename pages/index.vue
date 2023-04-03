@@ -78,7 +78,7 @@ If selectedSubject.index is undefined, return a blank table
                   clearable item-value="index" placeholder="Select Subject"
                   :style="{ 'max-width': '100%', 'height': '10vh' }">
                         </v-autocomplete> -->
-                <div class="boxSpace" style="height: 1vh"></div>
+   
                 <v-alert><b>Note: </b>The select will only show 10 items. <p>Type in your subject code or name. </p><p> Scroll the table horizontally/vertically if it's too big.</p></v-alert>
               </v-container>
             </v-card-text>

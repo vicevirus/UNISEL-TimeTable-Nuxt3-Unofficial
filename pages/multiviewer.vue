@@ -89,7 +89,7 @@ Clear the vue-select after adding a
                                     placeholder="Select Subject" clearable
                                     :style="{ 'max-width': '100%', 'height': '10vh' }">
                                         </v-autocomplete> -->
-                                <div class="boxSpace" style="height: 1vh"></div>
+
                                 <v-alert><b>Note: </b>The select will only show 10 items. Type in your subject name and <p>
                                         keep on adding the subjects
                                         you wish
