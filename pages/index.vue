@@ -80,7 +80,7 @@
             </v-card-text>
           </v-card>
           <br>
-          <vue-select :style="{ 'z-index': '9999', 'max-width': '100%', 'color': 'black', 'background-color': 'white' }"
+          <vue-select :style="{ 'max-width': '100%', 'color': 'black', 'background-color': 'white' }"
             :options="paginated" v-model="selectedSubject"
             :reduce="subject => ({ label: subject.label, index: subject.index })" :filterable="false" @search="onSearch">
 
