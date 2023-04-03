@@ -1,7 +1,7 @@
 <template>
 <v-card variant="tonal" style="text-align: center; ">
     <v-alert>
-        <h2><b>Timetable</b></h2>View subjects timetable.
+        <h2><b>{{ pageTitle }}</b></h2> {{ pageDesc}}
     </v-alert>
 
     <v-divider thickness="1px" color="purple"></v-divider>
@@ -71,6 +71,10 @@
 <script>
 import axios from "axios";
 export default {
+    props: {
+        pageTitle: String,
+        pageDesc: String
+    },
     emits: ["selected-subject", "selected-campus", "time-data", "subjects", "timetable-data"],
     data() {
         return {

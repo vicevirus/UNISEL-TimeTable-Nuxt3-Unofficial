@@ -12,7 +12,7 @@
         <div class="boxSpace" style="height: 3vh;"></div>
 
         <wrapper>
-            <subjectSelection @selected-subject="onSelectedSubject" @selected-campus="onSelectedCampus" @time-data="fetchTimeData" />
+            <subjectSelection pageTitle="Timetable" pageDesc="View subjects timetable." @selected-subject="onSelectedSubject" @selected-campus="onSelectedCampus" @time-data="fetchTimeData" />
 
         </wrapper>
         <v-container :fluid="true" class="timetable-container">
@@ -20,7 +20,7 @@
                 <v-responsive v-if="selectedSubject !== ''">
                     <v-table class="timetable">
                         <thead>
-                            <th :colspan="selectedCampus === 'SA' ? 15 : 12" class="xAxis text-left">{{ selectedSubject.label }}</th>
+                            <th :colspan="selectedCampus === 'SA' ? 15 : 12" class="xAxis text-left">&nbsp; {{ selectedSubject.label }}</th>
                             <tr>
                                 <th class="xAxis">Day</th>
                                 <th v-for="time in currentCampusTimeSlots" :key="time" class="xAxis">{{ time }}</th>
