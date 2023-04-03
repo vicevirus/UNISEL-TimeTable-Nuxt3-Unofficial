@@ -79,7 +79,7 @@ If selectedSubject.index is undefined, return a blank table
                   :style="{ 'max-width': '100%', 'height': '10vh' }">
                         </v-autocomplete> -->
    
-                <v-alert><b>Note: </b>The select will only show 10 items. <p>Type in your subject code or name. </p><p> Scroll the table horizontally/vertically if it's too big.</p></v-alert>
+                <v-alert><b>Note: </b>The select will only show 10 items. <p>Type in your subject code or name for more.</p><p> Scroll the table horizontally/vertically if it's too big.</p></v-alert>
               </v-container>
             </v-card-text>
           </v-card>
