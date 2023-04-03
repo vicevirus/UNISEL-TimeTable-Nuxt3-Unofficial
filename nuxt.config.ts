@@ -1,9 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 export default defineNuxtConfig({
-    plugins: [{ src: '~/plugins/vercel.js', mode: 'client' }],
-  
-    
+    plugins: ['~/plugins/vueselect.js', { src: '~/plugins/vercel.js', mode: 'client' }],
+
+
     modules: [
         '@nuxtjs/robots',
         '@kevinmarrec/nuxt-pwa'
@@ -14,14 +14,14 @@ export default defineNuxtConfig({
             name: 'Unisel Timetable',
             short_name: "Unisel Timetable",
 
-          },
+        },
         meta: {
             // Generate splash screens for iOS
             mobileAppIOS: true,
             name: 'Unisel Timetable',
             theme_color: '#ffffff',
         },
-       
+
 
     },
     ssr: true,

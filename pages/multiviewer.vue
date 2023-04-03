@@ -1,3 +1,4 @@
+Clear the vue-select after adding a
 <template>
     <Head>
         <Title>UNISEL Timetable (Unofficial) / Subjects Multiviewer</Title>
@@ -12,13 +13,16 @@
             <wrapper>
 
 
+
                 <v-card variant="tonal" style="text-align: center; ">
 
                     <v-alert>
                         <h2><b>Subjects MultiViewer</b></h2>View multiple subjects in one place.
                     </v-alert>
 
+                    <div>
 
+                    </div>
 
                     <v-divider thickness="1px" color="purple"></v-divider>
 
@@ -61,24 +65,37 @@
                 </v-card>
                 <div class="boxSpace" style="height: 2vh"></div>
                 <div v-if="selectedCampus">
+
+                    <vue-select
+                        :style="{ 'z-index': '1', 'max-width': '100%', 'color': 'black', 'background-color': 'white' }"
+                        :options="paginated" v-model="selectedSubjectIndex"
+                        :reduce="selectedSubjectIndex => selectedSubjectIndex.label" :filterable="false" @search="onSearch">
+
+
+                    </vue-select>
+
+                    <br>
                     <v-card variant="tonal" style="text-align: center; ">
+
                         <v-card-text>
+
                             <v-container :fluid="true">
 
 
 
-                                <div class="boxSpace" style="height: 1vh;"></div>
-                                <v-autocomplete auto-select-first ref="input" label="Select or type a subject.."
-                                    v-model="selectedSubjectIndex" :items="subjects" item-text="subject" :persistent-placeholder="true" open-on-clear variant="solo"
-                                    item-value="index" placeholder="Select Subject" clearable
+                            <!-- <v-autocomplete auto-select-first ref="input" label="Select or type a subject.."
+                                    v-model="selectedSubjectIndex" :items="subjects" item-text="subject"
+                                    :persistent-placeholder="true" open-on-clear variant="solo" item-value="index"
+                                    placeholder="Select Subject" clearable
                                     :style="{ 'max-width': '100%', 'height': '10vh' }">
-                                </v-autocomplete>
+                                        </v-autocomplete> -->
                                 <div class="boxSpace" style="height: 1vh"></div>
-                                <v-alert><b>Note: </b>Type in or select your subject name and <p>keep on adding the subjects
+                                <v-alert><b>Note: </b>The select will only show 10 items. Type in your subject name and <p>
+                                        keep on adding the subjects
                                         you wish
-                                        to view.</p></v-alert>
+                                        to view.</p> </v-alert>
                                 <div class="boxSpace" style="height: 1vh;"></div>
-                                <v-btn @click="addSubject">Add subject</v-btn>
+                                <v-btn color="orange" @click="addSubject">Add subject</v-btn>
                             </v-container>
                         </v-card-text>
                     </v-card>
@@ -196,9 +213,14 @@
   
 <script>
 import axios from "axios";
+
 export default {
     data() {
         return {
+
+            limit: 10,
+            offset: 0,
+            search: '',
             addedSubjectsByCampus: {
                 'SA': [],
                 'BJ': [],
@@ -228,6 +250,12 @@ export default {
     },
 
     methods: {
+        onSearch(query) {
+            this.search = query
+            this.offset = 0
+            console.log(query + 'hi')
+        },
+
         async updateSubjects() {
             try {
                 if (!this.selectedCampus) {
@@ -246,7 +274,7 @@ export default {
 
                 const campusData = this.timetableData;
                 this.subjects = this.timetableData.subjects.map(
-                    (subject, index) => ({ title: subject.subject, index: index })
+                    (subject, index) => ({ label: subject.subject, index: index })
                 );
                 this.timeData = campusData.subjectsTime
 
@@ -265,35 +293,84 @@ export default {
                 return;
             }
 
-            const selectedSubject = {
-                ...this.timetableData.subjects[this.selectedSubjectIndex],
-                index: this.selectedSubjectIndex
-            };
 
+
+            const label = this.selectedSubjectIndex;
+            console.log(label)
+            const matchedSubject = this.subjects.find(subject => subject.label === label);
+
+            if (!matchedSubject) {
+                this.error = `Subject "${label}" not found.`;
+                return;
+            }
+
+            const selectedSubject = {
+                ...this.timetableData.subjects[matchedSubject.index],
+                index: matchedSubject.index
+            };
 
             this.addedSubjectsByCampus[this.selectedCampus].push(selectedSubject);
             this.error = '';
-            this.selectedSubjectIndex = '';
+
 
 
         },
+
+
+
 
     },
     watch: {
         selectedCampus() {
             this.updateSubjects();
+            this.selectedSubjectIndex = 'Please type in a subject name or code.. ';
+
         },
 
     },
     created() {
         this.updateSubjects();
     },
+    computed: {
+        filtered() {
+            const filteredSubjects = this.subjects.filter((subject) =>
+                subject.label.toLocaleLowerCase().includes(this.search.toLocaleLowerCase())
+            );
+
+            return filteredSubjects;
+        },
+        paginated() {
+            const test = this.filtered.slice(this.offset, this.limit + this.offset)
+
+            return test
+        },
+        hasNextPage() {
+            const nextOffset = this.offset + this.limit
+            const test = Boolean(
+                this.filtered.slice(nextOffset, this.limit + nextOffset).length)
+
+            return test
+
+        },
+        hasPrevPage() {
+            console.log('cioib')
+            const prevOffset = this.offset - this.limit
+
+            return Boolean(
+                this.filtered.slice(prevOffset, this.limit + prevOffset).length
+            )
+        },
+
+
+    },
+
 };
 </script>
   
   
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import 'vue-select/dist/vue-select.css';
 
 a {
 

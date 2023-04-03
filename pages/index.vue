@@ -1,3 +1,4 @@
+If selectedSubject.index is undefined, return a blank table
 <template>
   <Head>
     <Title>UNISEL Timetable (Unofficial)</Title>
@@ -58,18 +59,27 @@
 
         <div class="boxSpace" style="height: 2vh"></div>
         <div v-if="selectedCampus">
+          <vue-select :style="{ 'z-index': '1', 'max-width': '100%', 'color': 'black', 'background-color': 'white' }"
+            :options="paginated" v-model="selectedSubject"
+            :reduce="subject => ({ label: subject.label, index: subject.index })" :filterable="false" @search="onSearch">
+
+
+          </vue-select>
+          <br>
+
           <v-card variant="tonal" style="text-align: center; ">
             <v-card-text>
               <v-container :fluid="true">
 
 
-                <div class="boxSpace" style="height: 1vh;"></div>
-                <v-autocomplete auto-select-first ref="input" label="Select or type a subject.." v-model="selectedSubject"
-                  :items="subjects" item-text="subject" variant="solo" :persistent-placeholder="true" open-on-clear  clearable item-value="index"
-                  placeholder="Select Subject" :style="{ 'max-width': '100%', 'height': '10vh' }">
-                </v-autocomplete>
+
+              <!-- <v-autocomplete auto-select-first ref="input" label="Select or type a subject.." v-model="selectedSubject"
+                  :items="subjects" item-text="subject" variant="solo" :persistent-placeholder="true" open-on-clear
+                  clearable item-value="index" placeholder="Select Subject"
+                  :style="{ 'max-width': '100%', 'height': '10vh' }">
+                        </v-autocomplete> -->
                 <div class="boxSpace" style="height: 1vh"></div>
-                <v-alert><b>Note: </b>Scroll the table horizontally/vertically if it's too big.</v-alert>
+                <v-alert><b>Note: </b>The select will only show 10 items. <p>Type in your subject code or name. </p><p> Scroll the table horizontally/vertically if it's too big.</p></v-alert>
               </v-container>
             </v-card-text>
           </v-card>
@@ -80,101 +90,102 @@
 
 
       <v-container :fluid="true" class="timetable-container">
+        <div v-if="selectedSubject.index">
+          <v-responsive v-if="selectedSubject !== '' && selectedCampus == 'BJ' || selectedCampus == 'F'">
+            <v-table class="timetable">
 
-        <v-responsive v-if="selectedSubject !== '' && selectedCampus == 'BJ' || selectedCampus == 'F'">
-          <v-table class="timetable">
+              <thead>
 
-            <thead>
+                <tr>
+                  <!-- span -->
+                  <th class="xAxis">Day</th>
+                  <th class="xAxis">08:00</th>
+                  <th class="xAxis">09:00</th>
+                  <th class="xAxis">10:00</th>
+                  <th class="xAxis">11:00</th>
+                  <th class="xAxis">12:00</th>
+                  <th class="xAxis">13:00</th>
+                  <th class="xAxis">14:00</th>
+                  <th class="xAxis">15:00</th>
+                  <th class="xAxis">16:00</th>
+                  <th class="xAxis">17:00</th>
+                  <th class="xAxis">18:00</th>
 
-              <tr>
-                <!-- span -->
-                <th class="xAxis">Day</th>
-                <th class="xAxis">08:00</th>
-                <th class="xAxis">09:00</th>
-                <th class="xAxis">10:00</th>
-                <th class="xAxis">11:00</th>
-                <th class="xAxis">12:00</th>
-                <th class="xAxis">13:00</th>
-                <th class="xAxis">14:00</th>
-                <th class="xAxis">15:00</th>
-                <th class="xAxis">16:00</th>
-                <th class="xAxis">17:00</th>
-                <th class="xAxis">18:00</th>
-
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="day in daysOfWeek" :key="day">
-                <td class="day">{{ day.slice(0, 3) }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][0] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][1] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][2] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][3] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][4] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][5] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][6] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][7] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][8] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][9] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][10] || '-' }}</td>
-
-
-              </tr>
-
-            </tbody>
-          </v-table>
-        </v-responsive>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="day in daysOfWeek" :key="day">
+                  <td class="day">{{ day.slice(0, 3) }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][0] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][1] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][2] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][3] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][4] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][5] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][6] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][7] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][8] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][9] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][10] || '-' }}</td>
 
 
+                </tr>
 
-        <v-responsive v-if="selectedSubject !== '' && selectedCampus == 'SA'">
-          <v-table class="timetable">
-            <thead>
-              <tr>
-                <th class="xAxis">Day</th>
-                <th class="xAxis">08:00</th>
-                <th class="xAxis">09:00</th>
-                <th class="xAxis">10:00</th>
-                <th class="xAxis">11:00</th>
-                <th class="xAxis">12:00</th>
-                <th class="xAxis">13:00</th>
-                <th class="xAxis">14:00</th>
-                <th class="xAxis">15:00</th>
-                <th class="xAxis">16:00</th>
-                <th class="xAxis">17:00</th>
-                <th class="xAxis">18:00</th>
-                <th class="xAxis">19:00</th>
-                <th class="xAxis">20:00</th>
-                <th class="xAxis">21:00</th>
-
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="day in daysOfWeek" :key="day">
-                <td class="day">{{ day.slice(0, 3) }}</td>
-
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][0] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][1] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][2] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][3] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][4] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][5] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][6] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][7] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][8] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][9] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][10] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][11] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][12] || '-' }}</td>
-                <td>{{ timeData[selectedSubject][day.toLowerCase()][13] || '-' }}</td>
-
-              </tr>
-              <tr></tr>
-            </tbody>
-          </v-table>
+              </tbody>
+            </v-table>
+          </v-responsive>
 
 
-        </v-responsive>
+
+          <v-responsive v-if="selectedSubject !== '' && selectedCampus == 'SA'">
+            <v-table class="timetable">
+              <thead>
+                <tr>
+                  <th class="xAxis">Day</th>
+                  <th class="xAxis">08:00</th>
+                  <th class="xAxis">09:00</th>
+                  <th class="xAxis">10:00</th>
+                  <th class="xAxis">11:00</th>
+                  <th class="xAxis">12:00</th>
+                  <th class="xAxis">13:00</th>
+                  <th class="xAxis">14:00</th>
+                  <th class="xAxis">15:00</th>
+                  <th class="xAxis">16:00</th>
+                  <th class="xAxis">17:00</th>
+                  <th class="xAxis">18:00</th>
+                  <th class="xAxis">19:00</th>
+                  <th class="xAxis">20:00</th>
+                  <th class="xAxis">21:00</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="day in daysOfWeek" :key="day">
+                  <td class="day">{{ day.slice(0, 3) }}</td>
+
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][0] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][1] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][2] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][3] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][4] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][5] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][6] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][7] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][8] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][9] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][10] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][11] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][12] || '-' }}</td>
+                  <td>{{ timeData[this.selectedSubject.index][day.toLowerCase()][13] || '-' }}</td>
+
+                </tr>
+                <tr></tr>
+              </tbody>
+            </v-table>
+
+
+          </v-responsive>
+        </div>
       </v-container>
 
     </v-app>
@@ -199,21 +210,29 @@ export default {
   data() {
     return {
 
-
+      limit: 10,
+      offset: 0,
+      search: '',
       campuses: ["SA", "BJ", "F"],
       selectedCampus: "",
       semesterCode: "",
       searchInput: null,
       selected: '',
-      subjects: [],
-      selectedSubject: "",
+      subjects: [{ label: "Please type in a subject name or code.." }],
+      selectedSubject: "Select Subject",
       timetableData: {},
       timeData: {},
       daysOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
     };
   },
   methods: {
+    onSearch(query) {
+      this.search = query
+      this.offset = 0
+
+    },
     async updateSubjects() {
+
       try {
         if (!this.selectedCampus) {
           return;
@@ -231,11 +250,14 @@ export default {
 
         const campusData = this.timetableData;
         this.subjects = this.timetableData.subjects.map(
-          (subject, index) => ({ title: subject.subject, index: index })
+          (subject, index) => ({ label: subject.subject, index: index })
         );
-        this.selectedSubject = this.subjects.length ? this.subjects[0].index : "";
+
+
 
         this.timeData = campusData.subjectsTime
+
+
 
       } catch (error) {
         console.error("Error fetching timetable data:", error);
@@ -245,18 +267,48 @@ export default {
 
   },
   computed: {
-    toggleButtonColor() {
-      return this.theme.global.current.value.dark ? 'yellow darken-3' : 'grey';
-    }
+    filtered() {
+      const filteredSubjects = this.subjects.filter((subject) =>
+        subject.label.toLocaleLowerCase().includes(this.search.toLocaleLowerCase())
+      );
+
+      return filteredSubjects;
+    },
+    paginated() {
+      const test = this.filtered.slice(this.offset, this.limit + this.offset)
+
+      return test
+    },
+    hasNextPage() {
+      const nextOffset = this.offset + this.limit
+      const test = Boolean(
+        this.filtered.slice(nextOffset, this.limit + nextOffset).length)
+
+      return test
+
+    },
+    hasPrevPage() {
+
+      const prevOffset = this.offset - this.limit
+
+      return Boolean(
+        this.filtered.slice(prevOffset, this.limit + prevOffset).length
+      )
+    },
+
   },
   watch: {
     selectedCampus() {
       this.updateSubjects();
+
     },
 
   },
   created() {
-    this.updateSubjects();
+    this.updateSubjects().then(() => {
+      // Set the default selected subject
+      this.selectedSubject = this.subjects[0];
+    });
   },
 };
 </script>
