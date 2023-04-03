@@ -1,4 +1,3 @@
-Clear the vue-select after adding a
 <template>
     <Head>
         <Title>UNISEL Timetable (Unofficial) / Subjects Multiviewer</Title>
@@ -66,9 +65,9 @@ Clear the vue-select after adding a
                 <div class="boxSpace" style="height: 2vh"></div>
                 <div v-if="selectedCampus">
 
-                    
 
-                  
+
+
                     <v-card variant="tonal" style="text-align: center; ">
 
                         <v-card-text>
@@ -77,31 +76,34 @@ Clear the vue-select after adding a
 
 
 
-                            <!-- <v-autocomplete auto-select-first ref="input" label="Select or type a subject.."
-                                    v-model="selectedSubjectIndex" :items="subjects" item-text="subject"
-                                    :persistent-placeholder="true" open-on-clear variant="solo" item-value="index"
-                                    placeholder="Select Subject" clearable
-                                    :style="{ 'max-width': '100%', 'height': '10vh' }">
-                                        </v-autocomplete> -->
+                          
 
-                                <v-alert><b>Note: </b>The select will only show 10 items. Type in your subject name and <p>
-                                        keep on adding the subjects
+                                <v-alert><b>Note: </b>Type in your subject name and 
+                                        <br>keep on adding the subjects
                                         you wish
-                                        to view.</p> </v-alert>
-                                
-                              
+                                        to view. </v-alert>
+
+
                             </v-container>
                         </v-card-text>
                     </v-card>
-<br>
+                    <br>
                     <vue-select
-                        :style="{ 'z-index': '1', 'max-width': '100%', 'color': 'black', 'background-color': 'white' }"
+                        :style="{ 'z-index': '9999', 'max-width': '100%', 'color': 'black', 'background-color': 'white' }"
                         :options="paginated" v-model="selectedSubjectIndex"
                         :reduce="selectedSubjectIndex => selectedSubjectIndex.label" :filterable="false" @search="onSearch">
 
+                        <template v-slot:list-footer>
+                            <li class="pagination">
+                                <v-btn rounded="0" :disabled="!hasPrevPage" @click="offset -= limit">Prev</v-btn>
+                                <v-btn rounded="0" :disabled="!hasNextPage" @click="offset += limit">Next</v-btn>
+                            </li>
+                           
+                        </template>
 
                     </vue-select>
-                    <v-container class="text-center" :fluid="true">  <v-btn color="orange" @click="addSubject">Add subject</v-btn></v-container>
+                    <v-container class="text-center" :fluid="true"> <v-btn color="orange" @click="addSubject">Add
+                            subject</v-btn></v-container>
                 </div>
 
             </wrapper>
@@ -221,7 +223,7 @@ export default {
     data() {
         return {
 
-            limit: 10,
+            limit: 6,
             offset: 0,
             search: '',
             addedSubjectsByCampus: {
@@ -256,7 +258,7 @@ export default {
         onSearch(query) {
             this.search = query
             this.offset = 0
-            console.log(query + 'hi')
+           
         },
 
         async updateSubjects() {
@@ -299,7 +301,7 @@ export default {
 
 
             const label = this.selectedSubjectIndex;
-            console.log(label)
+         
             const matchedSubject = this.subjects.find(subject => subject.label === label);
 
             if (!matchedSubject) {
@@ -356,7 +358,7 @@ export default {
 
         },
         hasPrevPage() {
-            console.log('cioib')
+          
             const prevOffset = this.offset - this.limit
 
             return Boolean(
@@ -374,6 +376,23 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
+
+.v-select {
+  border-radius: 5px;
+}
+
+.pagination {
+    display: flex;
+    margin: 0.25rem 0.25rem 0;
+}
+
+.pagination button {
+    flex-grow: 1;
+}
+
+.pagination button:hover {
+    cursor: pointer;
+}
 
 a {
 

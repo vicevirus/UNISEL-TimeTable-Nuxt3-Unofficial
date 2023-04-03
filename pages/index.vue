@@ -1,4 +1,3 @@
-If selectedSubject.index is undefined, return a blank table
 <template>
   <Head>
     <Title>UNISEL Timetable (Unofficial)</Title>
@@ -59,8 +58,8 @@ If selectedSubject.index is undefined, return a blank table
 
         <div class="boxSpace" style="height: 2vh"></div>
         <div v-if="selectedCampus">
-          
-       
+
+
 
           <v-card variant="tonal" style="text-align: center; ">
             <v-card-text>
@@ -72,17 +71,26 @@ If selectedSubject.index is undefined, return a blank table
                   :items="subjects" item-text="subject" variant="solo" :persistent-placeholder="true" open-on-clear
                   clearable item-value="index" placeholder="Select Subject"
                   :style="{ 'max-width': '100%', 'height': '10vh' }">
-                        </v-autocomplete> -->
-   
-                <v-alert><b>Note: </b>The select will only show 10 items. <p>Type in your subject code or name for more.</p><p> Scroll the table horizontally/vertically if it's too big.</p></v-alert>
+                          </v-autocomplete> -->
+
+                <v-alert><b>Note: </b>
+                  <p> Scroll the table horizontally/vertically if it's too big.</p>
+                </v-alert>
               </v-container>
             </v-card-text>
           </v-card>
           <br>
-          <vue-select :style="{ 'z-index': '1', 'max-width': '100%', 'color': 'black', 'background-color': 'white' }"
+          <vue-select :style="{ 'z-index': '9999', 'max-width': '100%', 'color': 'black', 'background-color': 'white' }"
             :options="paginated" v-model="selectedSubject"
             :reduce="subject => ({ label: subject.label, index: subject.index })" :filterable="false" @search="onSearch">
 
+            <template v-slot:list-footer>
+              <li class="pagination">
+                <v-btn rounded="0" :disabled="!hasPrevPage" @click="offset -= limit">Prev</v-btn>
+                <v-btn rounded="0" :disabled="!hasNextPage" @click="offset += limit">Next</v-btn>
+              </li>
+
+            </template>
 
           </vue-select>
         </div>
@@ -212,7 +220,7 @@ export default {
   data() {
     return {
 
-      limit: 10,
+      limit: 6,
       offset: 0,
       search: '',
       campuses: ["SA", "BJ", "F"],
@@ -317,6 +325,24 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+.v-select {
+  border-radius: 5px;
+}
+
+
+.pagination {
+    display: flex;
+    margin: 0.25rem 0.25rem 0;
+}
+
+.pagination button {
+    flex-grow: 1;
+}
+
+.pagination button:hover {
+    cursor: pointer;
+}
 
 a {
 
@@ -450,5 +476,4 @@ a {
   font-weight: bold !important;
   background-color: #E0E0E0;
   color: black !important;
-}
-</style>
+}</style>
