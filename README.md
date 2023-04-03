@@ -1,4 +1,4 @@
-# UNISEL TimeTable Vue App
+# UNISEL TimeTable Vue App (Unofficial)
 
 This Nuxt.js app displays the timetable for the Universiti Selangor (UNISEL) across its campuses. It allows users to select a campus and a subject, and displays the timetable for the selected subject in a table format.
 
