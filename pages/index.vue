@@ -59,13 +59,8 @@ If selectedSubject.index is undefined, return a blank table
 
         <div class="boxSpace" style="height: 2vh"></div>
         <div v-if="selectedCampus">
-          <vue-select :style="{ 'z-index': '1', 'max-width': '100%', 'color': 'black', 'background-color': 'white' }"
-            :options="paginated" v-model="selectedSubject"
-            :reduce="subject => ({ label: subject.label, index: subject.index })" :filterable="false" @search="onSearch">
-
-
-          </vue-select>
-          <br>
+          
+       
 
           <v-card variant="tonal" style="text-align: center; ">
             <v-card-text>
@@ -83,6 +78,13 @@ If selectedSubject.index is undefined, return a blank table
               </v-container>
             </v-card-text>
           </v-card>
+          <br>
+          <vue-select :style="{ 'z-index': '1', 'max-width': '100%', 'color': 'black', 'background-color': 'white' }"
+            :options="paginated" v-model="selectedSubject"
+            :reduce="subject => ({ label: subject.label, index: subject.index })" :filterable="false" @search="onSearch">
+
+
+          </vue-select>
         </div>
 
 
