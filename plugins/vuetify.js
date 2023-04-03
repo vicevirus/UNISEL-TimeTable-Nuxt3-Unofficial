@@ -5,6 +5,7 @@ import * as directives from 'vuetify/directives'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
 import '@mdi/font/css/materialdesignicons.min.css';
+import 'vue-select/dist/vue-select.css';
 
 export default defineNuxtPlugin(nuxtApp => {
   const vuetify = createVuetify({
