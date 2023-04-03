@@ -47,7 +47,7 @@
             <v-container :fluid="true">
 
                 <v-alert><b>Note: </b>
-                    <p> Scroll the table horizontally/vertically if it's too big.</p>
+                    <p> {{ pageNote }}</p>
                 </v-alert>
             </v-container>
         </v-card-text>
@@ -73,7 +73,8 @@ import axios from "axios";
 export default {
     props: {
         pageTitle: String,
-        pageDesc: String
+        pageDesc: String,
+        pageNote: String
     },
     emits: ["selected-subject", "selected-campus", "time-data", "subjects", "timetable-data"],
     data() {

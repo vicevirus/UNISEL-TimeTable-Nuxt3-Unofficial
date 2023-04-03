@@ -12,7 +12,8 @@
         <div class="boxSpace" style="height: 3vh;"></div>
 
         <wrapper>
-            <subjectSelection pageTitle="Timetable" pageDesc="View subjects timetable." @selected-subject="onSelectedSubject" @selected-campus="onSelectedCampus" @time-data="fetchTimeData" />
+            <subjectSelection 
+            pageTitle="Timetable" pageDesc="View subjects timetable." pageNote="Scroll the table horizontally/vertically if it's too big." @selected-subject="onSelectedSubject" @selected-campus="onSelectedCampus" @time-data="fetchTimeData" />
 
         </wrapper>
         <v-container :fluid="true" class="timetable-container">
