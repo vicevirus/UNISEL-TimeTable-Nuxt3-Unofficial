@@ -5,6 +5,7 @@ This Nuxt.js app displays the timetable for the Universiti Selangor (UNISEL) acr
 This project is linked to the timetable API created on my previous Fast API project. Previous project is in vanilla Vue. Intends to use Nuxt SSR for better SEO.
 
 API available here : https://github.com/vicevirus/UNISEL-TimeTable-REST-Scraper
+<br>
 Website available here : https://uniseltimetable.vercel.app
 
 ## Usage
