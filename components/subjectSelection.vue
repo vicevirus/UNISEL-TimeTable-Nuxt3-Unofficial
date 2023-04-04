@@ -115,12 +115,12 @@ export default {
                 if (!this.selectedCampus) {
                     return;
                 }
-                const response = await axios.get("https://uniseltimetableapi.duckdns.org:8000/latest_semester_codes");
+                const response = await axios.get("https://uniseltimetableapi.duckdns.org/latest_semester_codes");
                 const latestSemesterCode = response.data[this.selectedCampus][0]
                 this.semesterCode = latestSemesterCode;
 
                 // Update the API URL with the latest semester code
-                const apiUrl = `https://uniseltimetableapi.duckdns.org:8000/timetable_data/${this.selectedCampus}/${latestSemesterCode}`;
+                const apiUrl = `https://uniseltimetableapi.duckdns.org/timetable_data/${this.selectedCampus}/${latestSemesterCode}`;
                 const response2 = await axios.get(apiUrl);
 
                 this.timetableData = response2.data;
