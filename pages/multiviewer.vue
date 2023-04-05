@@ -1,4 +1,3 @@
-
 <template>
 <Head>
     <Title>UNISEL Timetable (Unofficial) / Subjects Multiviewer</Title>
@@ -22,6 +21,7 @@
 
         </wrapper>
         <v-container :fluid="true" v-for="subject in addedSubjectsByCampus[selectedCampus]" class="timetable-container">
+            
             <div v-if="subject.index >= 0">
 
                 <v-responsive v-if="selectedSubject !== ''">
@@ -36,7 +36,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="day in daysOfWeek" :key="day">
+                            <tr v-for="day in filteredDaysOfWeek" :key="day">
 
                                 <td class="day">{{ day.slice(0, 3) }}</td>
                                 <td v-for="(time, index) in currentCampusTimeSlots" :key="index">
@@ -91,12 +91,33 @@ export default {
                 "21:00",
             ],
             timeData: {},
-            daysOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-            days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+            daysOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            filteredDaysOfWeek: []
+
         };
     },
 
     methods: {
+        updateFilteredDaysOfWeek() {
+            if (this.selectedCampus === 'SA') {
+                this.filteredDaysOfWeek = this.daysOfWeek
+            } else {
+                this.filteredDaysOfWeek = this.daysOfWeek.slice(0, 5);
+            }
+        },
+        getCurrentCampusTimeSlots() {
+            if (this.selectedCampus === 'SA') {
+
+                return this.timeSlots;
+            } else if (this.selectedCampus === 'BJ') {
+
+                return this.timeSlots.slice(0, 12);
+            } else {
+
+                return this.timeSlots.slice(0, 11);
+            }
+
+        },
 
         onSearch(query) {
             this.search = query
@@ -109,7 +130,6 @@ export default {
         },
         onSelectedCampus(campus) {
             this.selectedCampus = campus
-
 
         },
         fetchTimeData(timeData) {
@@ -154,17 +174,18 @@ export default {
     },
     computed: {
         currentCampusTimeSlots() {
-            if (campus === "SA") {
-
-                this.currentCampusTimeSlots = this.timeSlots
-
-            } else if (campus === "BJ") {
-                this.currentCampusTimeSlots = this.timeSlots.slice(0, 12);
-            } else {
-                this.currentCampusTimeSlots = this.timeSlots.slice(0, 11);
-            }
+            return this.getCurrentCampusTimeSlots();
         }
-    }
+    },
+    watch: {
+        selectedCampus(newVal) {
+            console.log(newVal)
+            this.updateFilteredDaysOfWeek();
+        },
+    },
+    mounted() {
+        this.updateFilteredDaysOfWeek();
+    },
 
 };
 </script>

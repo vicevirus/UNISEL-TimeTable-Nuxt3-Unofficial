@@ -1,4 +1,3 @@
-
 <template>
     <v-card variant="tonal" style="text-align: center; ">
         <v-alert>
@@ -15,11 +14,11 @@
 
                     <div class="boxSpace" style="height: 3vh"></div>
                     <div>
-                        <!-- <label class="radio-label">
-                            <input type="radio" id="campus-SA" value="SA" v-model="selectedCampus" class="radio-input" disabled>
+                        <label class="radio-label">
+                            <input type="radio" id="campus-SA" value="SA" v-model="selectedCampus" class="radio-input" >
                             <span class="radio-custom"></span>
                             Shah Alam
-                        </label> -->
+                        </label>
                         <label class="radio-label">
                             <input type="radio" id="campus-BJ" value="BJ" v-model="selectedCampus" class="radio-input">
                             <span class="radio-custom"></span>
@@ -97,8 +96,7 @@ export default {
             subjects: [{ label: "Please type in a subject name or code.." }],
             selectedSubject: "Select Subject",
             timetableData: {},
-            timeData: {},
-            daysOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            timeData: {}
         };
     },
     methods: {

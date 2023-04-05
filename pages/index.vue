@@ -10,13 +10,12 @@
         <appBar />
 
         <div class="boxSpace" style="height: 3vh;"></div>
-        
+
         <wrapper>
-            <subjectSelection 
-            pageTitle="Timetable" pageDesc="View subjects timetable." updateNote="Shah Alam Campus have been removed temporarily due to data inaccuracy." pageNote="Scroll the table horizontally/vertically if it's too big." @selected-subject="onSelectedSubject" @selected-campus="onSelectedCampus" @time-data="fetchTimeData" />
+            <subjectSelection pageTitle="Timetable" pageDesc="View subjects timetable." updateNote="Fixed the issues with SA." pageNote="Scroll the table horizontally/vertically if it's too big." @selected-subject="onSelectedSubject" @selected-campus="onSelectedCampus" @time-data="fetchTimeData" />
 
         </wrapper>
-        
+
         <v-container :fluid="true" class="timetable-container">
             <div v-if="selectedSubject.index >= 0">
                 <v-responsive v-if="selectedSubject !== ''">
@@ -29,7 +28,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="day in daysOfWeek" :key="day">
+                            <tr v-for="day in filteredDaysOfWeek" :key="day">
                                 <td class="day">{{ day.slice(0, 3) }}</td>
                                 <td v-for="(time, index) in timeData[this.selectedSubject.index][day.toLowerCase()]" :key="index">
                                     {{ time || '-' }}
@@ -81,21 +80,46 @@ export default {
                 "20:00",
                 "21:00",
             ],
-            daysOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            daysOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            filteredDaysOfWeek: [],
         };
     },
 
     methods: {
+        updateFilteredDaysOfWeek() {
+            if (this.selectedCampus === 'SA') {
+                this.filteredDaysOfWeek = this.daysOfWeek
+            } else {
+                this.filteredDaysOfWeek = this.daysOfWeek.slice(0, 5);
+            }
+        },
+        getCurrentCampusTimeSlots() {
+            if (this.selectedCampus === 'SA') {
+                
+                return this.timeSlots;
+            } else if (this.selectedCampus === 'BJ') {
+              
+                return this.timeSlots.slice(0, 12);
+            } else {
+               
+                return this.timeSlots.slice(0, 11);
+            }
+
+        },
         onSelectedSubject(subject) {
             this.selectedSubject = subject
 
         },
         onSelectedCampus(campus) {
+
             this.selectedCampus = campus
+            
 
         },
+
         fetchTimeData(timeData) {
             this.timeData = timeData
+
 
         },
         onSearch(query) {
@@ -107,16 +131,21 @@ export default {
     },
     computed: {
         currentCampusTimeSlots() {
-            if (this.selectedCampus === 'SA') {
-                return this.timeSlots;
-            } else if (this.selectedCampus === 'BJ'){
-                return this.timeSlots.slice(0, 12);
-            } else {
-                return this.timeSlots.slice(0, 11);
-            }
-             
-        }
-    }
+            return this.getCurrentCampusTimeSlots();
+
+        },
+
+    },
+    watch: {
+        selectedCampus(newVal) {
+            console.log(newVal)
+            this.updateFilteredDaysOfWeek();
+        },
+    },
+
+    mounted() {
+        this.updateFilteredDaysOfWeek();
+    },
 
 }
 </script>
