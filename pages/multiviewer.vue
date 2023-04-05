@@ -1,3 +1,4 @@
+
 <template>
 <Head>
     <Title>UNISEL Timetable (Unofficial) / Subjects Multiviewer</Title>
@@ -11,8 +12,8 @@
 
         <wrapper>
             <subjectSelection pageTitle="Subjects MultiViewer" pageDesc="View multiple subjects in one place." pageNote="Type in or select your subject name and keep on adding the subjects
-                                        you wish
-                                        to view." @selected-subject="onSelectedSubject" @selected-campus="onSelectedCampus" @time-data="fetchTimeData" @subjects="fetchSubjectsData" @timetable-data="fetchTimetableData">
+                                            you wish
+                                            to view." @selected-subject="onSelectedSubject" @selected-campus="onSelectedCampus" @time-data="fetchTimeData" @subjects="fetchSubjectsData" @timetable-data="fetchTimetableData">
                 <v-container class="text-center" :fluid="true">
                     <v-btn color="orange" @click="addSubject">Add
                         subject</v-btn>
@@ -22,10 +23,12 @@
         </wrapper>
         <v-container :fluid="true" v-for="subject in addedSubjectsByCampus[selectedCampus]" class="timetable-container">
             <div v-if="subject.index >= 0">
+
                 <v-responsive v-if="selectedSubject !== ''">
                     <v-table class="timetable">
                         <thead>
-                            <th :colspan="selectedCampus === 'SA' ? 15 : 12" class="xAxis text-left">&nbsp; {{ subject.subject
+                            <th :colspan="currentCampusTimeSlots.length + 1" class="xAxis text-left">&nbsp; {{
+                                    subject.subject
                                 }}</th>
                             <tr>
                                 <th class="xAxis">Day</th>
@@ -36,9 +39,9 @@
                             <tr v-for="day in daysOfWeek" :key="day">
 
                                 <td class="day">{{ day.slice(0, 3) }}</td>
-                                <td v-for="(time, index) in timeData[subject.index][day.toLowerCase()]" :key="index">
-                                    {{ time || '-' }}
-                                </td>
+                                <td v-for="(time, index) in currentCampusTimeSlots" :key="index">
+                                    {{ index < timeData[subject.index][day.toLowerCase()].length ?
+                                            timeData[subject.index][day.toLowerCase()][index] || '-' : '-' }} </td>
                             </tr>
                         </tbody>
                     </v-table>
@@ -70,6 +73,7 @@ export default {
             error: '',
             subjects: [],
             selectedCampus: null,
+
             timeSlots: [
                 "08:00",
                 "09:00",
@@ -93,6 +97,7 @@ export default {
     },
 
     methods: {
+
         onSearch(query) {
             this.search = query
             this.offset = 0
@@ -104,6 +109,7 @@ export default {
         },
         onSelectedCampus(campus) {
             this.selectedCampus = campus
+
 
         },
         fetchTimeData(timeData) {
@@ -148,13 +154,17 @@ export default {
     },
     computed: {
         currentCampusTimeSlots() {
-            if (this.selectedCampus === 'SA') {
-                return this.timeSlots;
+            if (campus === "SA") {
+
+                this.currentCampusTimeSlots = this.timeSlots
+
+            } else if (campus === "BJ") {
+                this.currentCampusTimeSlots = this.timeSlots.slice(0, 12);
             } else {
-                return this.timeSlots.slice(0, 11);
+                this.currentCampusTimeSlots = this.timeSlots.slice(0, 11);
             }
         }
-    },
+    }
 
 };
 </script>

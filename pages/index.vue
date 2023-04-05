@@ -10,18 +10,19 @@
         <appBar />
 
         <div class="boxSpace" style="height: 3vh;"></div>
-
+        
         <wrapper>
             <subjectSelection 
-            pageTitle="Timetable" pageDesc="View subjects timetable." pageNote="Scroll the table horizontally/vertically if it's too big." @selected-subject="onSelectedSubject" @selected-campus="onSelectedCampus" @time-data="fetchTimeData" />
+            pageTitle="Timetable" pageDesc="View subjects timetable." updateNote="Shah Alam Campus have been removed temporarily due to data inaccuracy." pageNote="Scroll the table horizontally/vertically if it's too big." @selected-subject="onSelectedSubject" @selected-campus="onSelectedCampus" @time-data="fetchTimeData" />
 
         </wrapper>
+        
         <v-container :fluid="true" class="timetable-container">
             <div v-if="selectedSubject.index >= 0">
                 <v-responsive v-if="selectedSubject !== ''">
                     <v-table class="timetable">
                         <thead>
-                            <th :colspan="selectedCampus === 'SA' ? 15 : 12" class="xAxis text-left">&nbsp; {{ selectedSubject.label }}</th>
+                            <th :colspan="currentCampusTimeSlots.length + 1" class="xAxis text-left">&nbsp; {{ selectedSubject.label }}</th>
                             <tr>
                                 <th class="xAxis">Day</th>
                                 <th v-for="time in currentCampusTimeSlots" :key="time" class="xAxis">{{ time }}</th>
@@ -108,9 +109,12 @@ export default {
         currentCampusTimeSlots() {
             if (this.selectedCampus === 'SA') {
                 return this.timeSlots;
+            } else if (this.selectedCampus === 'BJ'){
+                return this.timeSlots.slice(0, 12);
             } else {
                 return this.timeSlots.slice(0, 11);
             }
+             
         }
     }
 
