@@ -1,7 +1,9 @@
 <template>
     <v-app-bar color="deep-purple accent-4" :elevation="10" density="compact"  dark absolute>
+        <v-badge inline  color="green" content="<-- Try">
         <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-
+    </v-badge>
+    
         <v-toolbar-title class="title">UNISEL TimeTable</v-toolbar-title>
 
         <v-spacer></v-spacer>
