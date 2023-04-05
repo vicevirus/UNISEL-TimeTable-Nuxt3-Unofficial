@@ -1,3 +1,4 @@
+modify this code to wait for updatesubjects before allowing to select 
 <template>
     <v-card variant="tonal" style="text-align: center; ">
         <v-alert>
@@ -55,6 +56,7 @@
             </v-card-text>
         </v-card>
         <br>
+        <div v-if="loading">
         <vue-select :style="{ 'max-width': '100%', 'color': 'black', 'background-color': 'white' }" :options="paginated"
             v-model="selectedSubject" :reduce="subject => ({ label: subject.label, index: subject.index })"
             :filterable="false" @search="onSearch">
@@ -68,6 +70,7 @@
             </template>
 
         </vue-select>
+    </div>
         <slot></slot>
     </div>
 </template>
@@ -96,7 +99,8 @@ export default {
             subjects: [{ label: "Please type in a subject name or code.." }],
             selectedSubject: "Select Subject",
             timetableData: {},
-            timeData: {}
+            timeData: {},
+            loading: false,
         };
     },
     methods: {
@@ -121,6 +125,7 @@ export default {
                 if (!this.selectedCampus) {
                     return;
                 }
+                this.loading = false;
                 const response = await axios.get("https://uniseltimetableapi.zapto.org/latest_semester_codes");
                 const latestSemesterCode = response.data[this.selectedCampus][0]
                 this.semesterCode = latestSemesterCode;
@@ -137,6 +142,7 @@ export default {
                 );
 
                 this.timeData = campusData.subjectsTime
+                this.loading = true;
 
             } catch (error) {
                 console.error("Error fetching timetable data:", error);
@@ -182,6 +188,7 @@ export default {
                 this.timeData = this.timetableData.subjectsTime;
                 this.$emit('selected-campus', selectedCampus);
                 this.$emit('time-data', this.timeData);
+                this.loading = true;
 
             });
             this.selectedSubject = "Select or type in a subject..";
