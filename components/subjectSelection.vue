@@ -68,12 +68,13 @@
 
         </vue-select>
     </div>
-        <slot></slot>
-    </div>
+    <slot></slot>
+</div>
 </template>
 
 <script>
 export default {
+
     props: {
         pageTitle: String,
         pageDesc: String,
@@ -99,12 +100,7 @@ export default {
         };
     },
     methods: {
-        removeCacheOnLeave() {
-            if (this.selectedCampus) {
-                localStorage.removeItem(this.selectedCampus);
 
-            }
-        },
         onSubjectSelected(selectedSubject) {
             this.$emit('selected-subject', selectedSubject);
 
@@ -121,27 +117,28 @@ export default {
 
         },
         async updateSubjects() {
-            // Fetching and caching in localstorage
+            // Fetching and caching in sessionStorage
             try {
                 if (!this.selectedCampus) {
                     return;
                 }
                 this.loading = false;
 
-                const cachedData = JSON.parse(localStorage.getItem(this.selectedCampus)) || {};
+                const cachedData = JSON.parse(sessionStorage.getItem(this.selectedCampus)) || {};
                 const currentTime = Date.now();
 
                 let latestSemesterCode;
                 if (cachedData.latestSemesterCode && currentTime - cachedData.timestamp < 60 * 1000) {
-
+      
                     latestSemesterCode = cachedData.latestSemesterCode;
                 } else {
                     const response = await fetch("https://uniseltimetableapi.zapto.org/latest_semester_codes");
+
                     const data = await response.json();
                     latestSemesterCode = data[this.selectedCampus][0];
                     cachedData.latestSemesterCode = latestSemesterCode;
                     cachedData.timestamp = currentTime;
-                    localStorage.setItem(this.selectedCampus, JSON.stringify(cachedData));
+                    sessionStorage.setItem(this.selectedCampus, JSON.stringify(cachedData));
 
                 }
                 this.semesterCode = latestSemesterCode;
@@ -150,7 +147,9 @@ export default {
 
                 if (cachedData.timetableData && currentTime - cachedData.timestamp < 60 * 1000) {
                     this.timetableData = cachedData.timetableData;
+              
                 } else {
+              
                     const response2 = await fetch(apiUrl);
                     const data2 = await response2.json();
 
@@ -158,7 +157,7 @@ export default {
 
                     cachedData.timetableData = data2;
                     cachedData.timestamp = currentTime;
-                    localStorage.setItem(this.selectedCampus, JSON.stringify(cachedData));
+                    sessionStorage.setItem(this.selectedCampus, JSON.stringify(cachedData));
                 }
 
                 const campusData = this.timetableData;
@@ -230,11 +229,6 @@ export default {
             this.selectedSubject = this.subjects[0];
         });
     },
-    mounted() {
-        window.addEventListener('beforeunload', this.removeCacheOnLeave);
-    },
-    beforeUnmount() {
-        window.removeEventListener('beforeunload', this.removeCacheOnLeave);
-    },
+
 }
 </script>
