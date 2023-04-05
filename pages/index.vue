@@ -95,13 +95,13 @@ export default {
         },
         getCurrentCampusTimeSlots() {
             if (this.selectedCampus === 'SA') {
-                
+
                 return this.timeSlots;
             } else if (this.selectedCampus === 'BJ') {
-              
+
                 return this.timeSlots.slice(0, 12);
             } else {
-               
+
                 return this.timeSlots.slice(0, 11);
             }
 
@@ -113,13 +113,11 @@ export default {
         onSelectedCampus(campus) {
 
             this.selectedCampus = campus
-            
 
         },
 
         fetchTimeData(timeData) {
             this.timeData = timeData
-
 
         },
         onSearch(query) {
@@ -138,7 +136,7 @@ export default {
     },
     watch: {
         selectedCampus(newVal) {
-            console.log(newVal)
+
             this.updateFilteredDaysOfWeek();
         },
     },

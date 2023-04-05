@@ -21,7 +21,7 @@
 
         </wrapper>
         <v-container :fluid="true" v-for="subject in addedSubjectsByCampus[selectedCampus]" class="timetable-container">
-            
+
             <div v-if="subject.index >= 0">
 
                 <v-responsive v-if="selectedSubject !== ''">
@@ -179,7 +179,7 @@ export default {
     },
     watch: {
         selectedCampus(newVal) {
-            console.log(newVal)
+
             this.updateFilteredDaysOfWeek();
         },
     },
