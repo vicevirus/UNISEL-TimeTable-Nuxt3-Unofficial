@@ -55,6 +55,9 @@
         </v-card-text>
     </v-card>
     <br>
+    <div v-if="!loading">
+        Loading the subjects.. please wait..
+    </div>
     <div v-if="loading">
         <vue-select :style="{ 'max-width': '100%', 'color': 'black', 'background-color': 'white' }" :options="paginated" v-model="selectedSubject" :reduce="subject => ({ label: subject.label, index: subject.index })" :filterable="false" @search="onSearch">
 
