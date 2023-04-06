@@ -50,6 +50,7 @@
                     <p> {{ pageNote }}</p>
                     <b>Update Note: </b>
                     <p> {{ updateNote }}</p>
+                    <p> {{ updateNoteLine2 }}</p>
                 </v-alert>
             </v-container>
         </v-card-text>
@@ -82,7 +83,8 @@ export default {
         pageTitle: String,
         pageDesc: String,
         pageNote: String,
-        updateNote: String
+        updateNote: String,
+        updateNoteLine2: String
     },
     emits: ["selected-subject", "selected-campus", "time-data", "subjects", "timetable-data"],
     data() {
@@ -132,27 +134,22 @@ export default {
 
                 let latestSemesterCode;
                 if (cachedData.latestSemesterCode && currentTime - cachedData.timestamp < 60 * 1000) {
-      
                     latestSemesterCode = cachedData.latestSemesterCode;
                 } else {
-                    const response = await fetch("https://uniseltimetableapi.zapto.org/latest_semester_codes");
-
+                    const response = await fetch('https://raw.githubusercontent.com/vicevirus/unisel-timetable-hosting-data/main/latest_semester_codes.json');
                     const data = await response.json();
                     latestSemesterCode = data[this.selectedCampus][0];
                     cachedData.latestSemesterCode = latestSemesterCode;
                     cachedData.timestamp = currentTime;
                     sessionStorage.setItem(this.selectedCampus, JSON.stringify(cachedData));
-
                 }
                 this.semesterCode = latestSemesterCode;
 
-                const apiUrl = `https://uniseltimetableapi.zapto.org/timetable_data/${this.selectedCampus}/${latestSemesterCode}`;
+                const apiUrl = `https://raw.githubusercontent.com/vicevirus/unisel-timetable-hosting-data/main/timetable_data_${latestSemesterCode}_${this.selectedCampus}.json`;
 
                 if (cachedData.timetableData && currentTime - cachedData.timestamp < 60 * 1000) {
                     this.timetableData = cachedData.timetableData;
-              
                 } else {
-              
                     const response2 = await fetch(apiUrl);
                     const data2 = await response2.json();
 
@@ -169,10 +166,10 @@ export default {
                     index: index,
                 }));
 
-                this.timeData = campusData.subjectsTime
+                this.timeData = campusData.subjectsTime;
 
             } catch (error) {
-                console.error("Error fetching timetable data:", error);
+                console.error('Error fetching timetable data:', error);
             }
         },
 
