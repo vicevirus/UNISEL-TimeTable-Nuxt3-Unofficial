@@ -12,8 +12,8 @@
         <div class="boxSpace" style="height: 3vh;"></div>
 
         <wrapper>
-            <subjectSelection pageTitle="Timetable" pageDesc="View subjects timetable." updateNote="Data are now hosted on Github for lower costs." 
-            updateNoteLine2="Data updates every 30mins." pageNote="Scroll the table horizontally/vertically if it's too big." @selected-subject="onSelectedSubject" @selected-campus="onSelectedCampus" @time-data="fetchTimeData" />
+            <subjectSelection pageTitle="Timetable" pageDesc="View subjects timetable." updateNote="Data are now hosted on Github for reducing cost." 
+            updateNoteLine2="Data updates every 5mins." pageNote="Scroll the table horizontally/vertically if it's too big." @selected-subject="onSelectedSubject" @selected-campus="onSelectedCampus" @time-data="fetchTimeData" />
 
         </wrapper>
 
