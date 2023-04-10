@@ -1,62 +1,70 @@
 <template>
-    <Head>
-        <Title>UNISEL Timetable - Easily Find Schedules for All Subjects</Title>
-        <Meta name="description" content="Discover UNISEL timetables with ease. Browse schedules for all subjects in one convenient location. Data is hosted on Github and updated every 5 minutes."/>
-        <Meta name="robots" content="index, follow"/>
-        <Meta name="google-site-verification" content="DepUX8AsAZTNU59dLXVZOVfzqZwhTz4Cv9KiZXL6ndA" />
-        <Meta name="keywords" content="UNISEL, timetable, schedule, university, subject, campus, Malaysia"/>
-    </Head>
-    <div id="app">
-        <main>
-            <v-app>
+<Head>
+    <Title>UNISEL Timetable - Easily Find Schedules for All Subjects</Title>
+    <Meta name="description" content="Discover UNISEL timetables with ease. Browse schedules for all subjects in one convenient location. Data is hosted on Github and updated every 5 minutes." />
+    <Meta name="robots" content="index, follow" />
+    <Meta name="google-site-verification" content="DepUX8AsAZTNU59dLXVZOVfzqZwhTz4Cv9KiZXL6ndA" />
+    <Meta name="keywords" content="UNISEL, timetable, schedule, university, subject, campus, Malaysia" />
+</Head>
+<div id="app">
+    <main>
+        <v-app>
 
-                <appBar />
+            <appBar />
 
-                <div class="boxSpace" style="height: 3vh;"></div>
+            <div class="boxSpace" style="height: 3vh;"></div>
 
-                <wrapper>
-                    <subjectSelection pageTitle="Timetable" pageDesc="View subjects timetable."
-                        updateNote="Data are now hosted on Github for reducing cost."
-                        updateNoteLine2="Data updates every 5mins."
-                        pageNote="Scroll the table horizontally/vertically if it's too big."
-                        @selected-subject="onSelectedSubject" @selected-campus="onSelectedCampus"
-                        @time-data="fetchTimeData" />
+            <wrapper>
+                <subjectSelection pageTitle="Timetable" pageDesc="View subjects timetable." updateNote="Data are now hosted on Github for reducing cost." updateNoteLine2="Data updates every 5mins." pageNote="Scroll the table horizontally/vertically if it's too big." @selected-subject="onSelectedSubject" @selected-campus="onSelectedCampus" @time-data="fetchTimeData" />
 
-                </wrapper>
+            </wrapper>
 
-                <v-container :fluid="true" class="timetable-container">
-                    <div v-if="selectedSubject.index >= 0">
-                        <v-responsive v-if="selectedSubject !== ''">
-                            <v-table class="timetable">
-                                <thead>
-                                    <th :colspan="currentCampusTimeSlots.length + 1" class="xAxis text-left">&nbsp; {{
+            <v-container :fluid="true" class="timetable-container">
+                <div v-if="selectedSubject.index >= 0">
+                    <v-responsive v-if="selectedSubject !== ''">
+                        <v-table class="timetable">
+                            <thead>
+                                <th :colspan="currentCampusTimeSlots.length + 1" class="xAxis text-left">&nbsp; {{
                                         selectedSubject.label }}</th>
-                                    <tr>
-                                        <th class="xAxis">Day</th>
-                                        <th v-for="time in currentCampusTimeSlots" :key="time" class="xAxis">{{ time }}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="day in filteredDaysOfWeek" :key="day">
-                                        <td class="day">{{ day.slice(0, 3) }}</td>
-                                        <td v-for="(time, index) in timeData[this.selectedSubject.index][day.toLowerCase()]"
-                                            :key="index">
-                                            {{ time || '-' }}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </v-table>
-                        </v-responsive>
-                    </div>
-                </v-container>
+                                <tr>
+                                    <th class="xAxis">Day</th>
+                                    <th v-for="time in currentCampusTimeSlots" :key="time" class="xAxis">{{ time }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="day in filteredDaysOfWeek" :key="day">
+                                    <td class="day">{{ day.slice(0, 3) }}</td>
+                                    <td v-for="(time, index) in timeData[this.selectedSubject.index][day.toLowerCase()]" :key="index">
+                                        {{ time || '-' }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </v-table>
+                    </v-responsive>
+                </div>
+            </v-container>
 
-            </v-app>
-        </main>
-    </div>
+        </v-app>
+    </main>
+</div>
 </template>
 
 <script>
+import { useMeta } from '#app'
 export default {
+    setup() {
+        useMeta({
+            script: [{
+                type: 'application/ld+json',
+                innerHTML: JSON.stringify({
+                    "@context": "http://schema.org",
+                    "@type": "Dataset",
+                    "name": "UNISEL TimeTable",
+                    "description": "Discover UNISEL timetables with ease. Browse schedules for all subjects in one convenient location. Data is hosted on Github and updated every 5 minutes."
+                }),
+            }, ],
+        })
+    },
     head: {
         meta: [
             { name: 'description', content: 'Unisel Timetable easier navigation' }
@@ -158,4 +166,6 @@ export default {
 }
 </script>
 
-<style>@import '~/assets/styles.css';</style>
+<style>
+@import '~/assets/styles.css';
+</style>
