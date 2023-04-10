@@ -4,10 +4,18 @@ export default defineNuxtConfig({
     
     plugins: ['~/plugins/vueselect.js', { src: '~/plugins/vercel.js', mode: 'client' }],
 
+    runtimeConfig: {
+        public: {
+          siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://uniseltimetable.vercel.app',
+        }
+    },
+    
+
 
     modules: [
         '@nuxtjs/robots',
-        '@kevinmarrec/nuxt-pwa'
+        '@kevinmarrec/nuxt-pwa',
+        'nuxt-simple-sitemap',
     ],
     pwa: {
         manifest: {

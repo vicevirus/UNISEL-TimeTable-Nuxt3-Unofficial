@@ -1,7 +1,8 @@
 <template>
 <Head>
-    <Title>UNISEL Timetable (Unofficial) / Subjects Multiviewer</Title>
-    <Meta name="description" content="Unisel Timetable Multiviewer. View multiple subjects in one page." />
+    <Title>UNISEL Timetable MultiViewer (Unofficial) - View and Manage Multiple Subjects</Title>
+        <Meta name="description" content="The Unofficial UNISEL Timetable MultiViewer allows you to view and manage multiple subjects in one convenient page. Easily add and organize your subjects by campus." />
+        <Meta name="keywords" content="UNISEL, timetable, multi-viewer, unofficial, subjects, campus, schedule, university" />
 </Head>
 <div id="app">
     <v-app>

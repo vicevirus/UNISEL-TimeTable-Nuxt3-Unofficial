@@ -1,49 +1,58 @@
 <template>
-<Head>
-    <Title>UNISEL Timetable (Unofficial)</Title>
-    <Meta name="description" content="Unisel Timetable (Unofficial). Easier navigation. All in one." />
-</Head>
-<div id="app">
+    <Head>
+        <Title>UNISEL Timetable - Easily Find Schedules for All Subjects</Title>
+        <Meta name="description" content="Discover UNISEL timetables with ease. Browse schedules for all subjects in one convenient location. Data is hosted on Github and updated every 5 minutes."></Meta>
+        <meta name="robots" content="index, follow">
+        <meta name="google-site-verification" content="DepUX8AsAZTNU59dLXVZOVfzqZwhTz4Cv9KiZXL6ndA" />
+        <meta name="keywords" content="UNISEL, timetable, schedule, university, subject, campus, Malaysia">
+    </Head>
+    <div id="app">
+        <main>
+            <v-app>
 
-    <v-app>
+                <appBar />
 
-        <appBar />
+                <div class="boxSpace" style="height: 3vh;"></div>
 
-        <div class="boxSpace" style="height: 3vh;"></div>
+                <wrapper>
+                    <subjectSelection pageTitle="Timetable" pageDesc="View subjects timetable."
+                        updateNote="Data are now hosted on Github for reducing cost."
+                        updateNoteLine2="Data updates every 5mins."
+                        pageNote="Scroll the table horizontally/vertically if it's too big."
+                        @selected-subject="onSelectedSubject" @selected-campus="onSelectedCampus"
+                        @time-data="fetchTimeData" />
 
-        <wrapper>
-            <subjectSelection pageTitle="Timetable" pageDesc="View subjects timetable." updateNote="Data are now hosted on Github for reducing cost." 
-            updateNoteLine2="Data updates every 5mins." pageNote="Scroll the table horizontally/vertically if it's too big." @selected-subject="onSelectedSubject" @selected-campus="onSelectedCampus" @time-data="fetchTimeData" />
+                </wrapper>
 
-        </wrapper>
+                <v-container :fluid="true" class="timetable-container">
+                    <div v-if="selectedSubject.index >= 0">
+                        <v-responsive v-if="selectedSubject !== ''">
+                            <v-table class="timetable">
+                                <thead>
+                                    <th :colspan="currentCampusTimeSlots.length + 1" class="xAxis text-left">&nbsp; {{
+                                        selectedSubject.label }}</th>
+                                    <tr>
+                                        <th class="xAxis">Day</th>
+                                        <th v-for="time in currentCampusTimeSlots" :key="time" class="xAxis">{{ time }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="day in filteredDaysOfWeek" :key="day">
+                                        <td class="day">{{ day.slice(0, 3) }}</td>
+                                        <td v-for="(time, index) in timeData[this.selectedSubject.index][day.toLowerCase()]"
+                                            :key="index">
+                                            {{ time || '-' }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </v-table>
+                        </v-responsive>
+                    </div>
+                </v-container>
 
-        <v-container :fluid="true" class="timetable-container">
-            <div v-if="selectedSubject.index >= 0">
-                <v-responsive v-if="selectedSubject !== ''">
-                    <v-table class="timetable">
-                        <thead>
-                            <th :colspan="currentCampusTimeSlots.length + 1" class="xAxis text-left">&nbsp; {{ selectedSubject.label }}</th>
-                            <tr>
-                                <th class="xAxis">Day</th>
-                                <th v-for="time in currentCampusTimeSlots" :key="time" class="xAxis">{{ time }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="day in filteredDaysOfWeek" :key="day">
-                                <td class="day">{{ day.slice(0, 3) }}</td>
-                                <td v-for="(time, index) in timeData[this.selectedSubject.index][day.toLowerCase()]" :key="index">
-                                    {{ time || '-' }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </v-table>
-                </v-responsive>
-            </div>
-        </v-container>
-
-    </v-app>
-
-</div>
+            </v-app>
+        </main>
+    </div>
 </template>
 
 <script>
@@ -149,6 +158,4 @@ export default {
 }
 </script>
 
-<style>
-@import '~/assets/styles.css';
-</style>
+<style>@import '~/assets/styles.css';</style>

@@ -10,7 +10,8 @@
   },
   "devDependencies": {
     "@kevinmarrec/nuxt-pwa": "^0.17.0",
-    "nuxt": "^3.3.2"
+    "nuxt": "^3.3.2",
+    "nuxt-simple-sitemap": "^2.4.8"
   },
   "dependencies": {
     "@mdi/font": "^7.2.96",
