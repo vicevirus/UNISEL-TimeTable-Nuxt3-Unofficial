@@ -1,10 +1,10 @@
 <template>
     <Head>
         <Title>UNISEL Timetable - Easily Find Schedules for All Subjects</Title>
-        <Meta name="description" content="Discover UNISEL timetables with ease. Browse schedules for all subjects in one convenient location. Data is hosted on Github and updated every 5 minutes."></Meta>
-        <meta name="robots" content="index, follow">
-        <meta name="google-site-verification" content="DepUX8AsAZTNU59dLXVZOVfzqZwhTz4Cv9KiZXL6ndA" />
-        <meta name="keywords" content="UNISEL, timetable, schedule, university, subject, campus, Malaysia">
+        <Meta name="description" content="Discover UNISEL timetables with ease. Browse schedules for all subjects in one convenient location. Data is hosted on Github and updated every 5 minutes."/>
+        <Meta name="robots" content="index, follow"/>
+        <Meta name="google-site-verification" content="DepUX8AsAZTNU59dLXVZOVfzqZwhTz4Cv9KiZXL6ndA" />
+        <Meta name="keywords" content="UNISEL, timetable, schedule, university, subject, campus, Malaysia"/>
     </Head>
     <div id="app">
         <main>
