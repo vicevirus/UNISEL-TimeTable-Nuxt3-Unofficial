@@ -50,26 +50,7 @@
 </template>
 
 <script>
-import { useMeta } from '#app'
 export default {
-    setup() {
-        useMeta({
-            script: [{
-                type: 'application/ld+json',
-                innerHTML: JSON.stringify({
-                    "@context": "http://schema.org",
-                    "@type": "Dataset",
-                    "name": "UNISEL TimeTable",
-                    "description": "Discover UNISEL timetables with ease. Browse schedules for all subjects in one convenient location. Data is hosted on Github and updated every 5 minutes."
-                }),
-            }, ],
-        })
-    },
-    head: {
-        meta: [
-            { name: 'description', content: 'Unisel Timetable easier navigation' }
-        ]
-    },
 
     data() {
         return {
