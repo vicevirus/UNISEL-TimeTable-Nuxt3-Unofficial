@@ -11,9 +11,7 @@
         <div class="boxSpace" style="height: 3vh;"></div>
 
         <wrapper>
-            <subjectSelection pageTitle="Subjects MultiViewer" pageDesc="View multiple subjects in one place." pageNote="Type in or select your subject name and keep on adding the subjects
-                                            you wish
-                                            to view." @selected-subject="onSelectedSubject" @selected-campus="onSelectedCampus" @time-data="fetchTimeData" @subjects="fetchSubjectsData" @timetable-data="fetchTimetableData">
+            <subjectSelection pageTitle="Subjects MultiViewer" pageDesc="View multiple subjects in one place."  pageNote="Data are now hosted on Github for reducing cost."  @selected-subject="onSelectedSubject" @selected-campus="onSelectedCampus" @time-data="fetchTimeData" @subjects="fetchSubjectsData" @timetable-data="fetchTimetableData">
                 <v-container class="text-center" :fluid="true">
                     <v-btn color="orange" @click="addSubject">Add
                         subject</v-btn>

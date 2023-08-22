@@ -47,10 +47,9 @@
             <v-container :fluid="true">
 
                 <v-alert><b>Note: </b>
-                    <p> {{ pageNote }}</p>
-                    <b>Update Note: </b>
-                    <p> {{ updateNote }}</p>
-                    <p> {{ updateNoteLine2 }}</p>
+                    <p>Scroll the table vertically/horizontally if it's too big.</p>
+                
+                   
                 </v-alert>
             </v-container>
         </v-card-text>
